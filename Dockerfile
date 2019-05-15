@@ -15,9 +15,6 @@ RUN apt-get update && \
     cd ml_mining && \
     pip3 install --no-cache-dir -r requirements.txt
 
-COPY . ml_mining/
-RUN cd ml_mining && pip3 install -e .
-
 RUN apt-get remove -y python3-dev libxml2-dev libsnappy-dev gcc g++ wget && \
     apt-get remove -y .*-doc .*-man >/dev/null && \
     apt-get autoremove -y && \
@@ -29,3 +26,6 @@ echo\n\
 echo "  $@"\n\
 echo\n\' > /browser && \
     chmod +x /browser
+
+COPY . ml_mining/
+RUN cd ml_mining && pip3 install -e .

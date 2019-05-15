@@ -1,0 +1,22 @@
+import unittest
+
+import bblfsh
+
+from sourced.ml.mining.tests.models import MODER_FUNC
+from sourced.ml.mining.transformers import Moder
+
+
+class ModerTest(unittest.TestCase):
+    def test_extract_functions_from_uast(self):
+        client = bblfsh.BblfshClient("localhost:9432")
+        uast = client.parse(MODER_FUNC).uast
+        functions = list(Moder(mode="func").extract_functions_from_uast(uast))
+        self.assertEqual(len(functions), 3)
+
+        function_names = ["func_a", "func_b", "func_c"]
+        for f in functions:
+            self.assertIn(f[0].token, function_names)
+
+
+if __name__ == "__main__":
+    unittest.main()

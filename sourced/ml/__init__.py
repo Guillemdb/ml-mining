@@ -1,1 +1,1 @@
-"""MLonCode data mining playground."""
+"""Tools for mining source code at scale."""

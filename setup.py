@@ -39,7 +39,7 @@ setup(
         "babelfish",
     ],
     install_requires=[
-        "sourced-ml-core",
+        "sourced-ml-core>=0.0.1",
         "PyStemmer>=1.3,<2.0",
         "sourced-jgit-spark-connector>=2.0.1,<2.1.0",
         "humanize>=0.5.0,<0.6",
