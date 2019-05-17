@@ -2,10 +2,9 @@ import argparse
 import sys
 import unittest
 
-from sourced.ml.core.tests.test_dump import captured_output
-
 import sourced.ml.mining.__main__ as main
 from sourced.ml.mining.cmd.args import ArgumentDefaultsHelpFormatterNoNone
+from sourced.ml.mining.tests.test_dump import captured_output
 
 
 class MainTests(unittest.TestCase):

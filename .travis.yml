@@ -17,7 +17,7 @@ _install: &_install
   - sudo apt install -y libsnappy-dev
   - travis_retry make bblfsh-start
   - pip install --upgrade pip cython codecov
-  - ML_MINING_SETUP_INCLUDE_TESTS=1 pip install .[tf]
+  - ML_MINING_SETUP_INCLUDE_TESTS=1  pip install ".[tf, pandas]"
   - cd $(pip show sourced.ml.mining|grep Location|cut -d' ' -f2)/sourced/ml/mining
   - find . -wholename "*/tests/*" -type d -exec chmod 555 {} \;
 _coverage: &_coverage

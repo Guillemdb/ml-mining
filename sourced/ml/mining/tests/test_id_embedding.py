@@ -10,11 +10,11 @@ from modelforge.model import assemble_sparse_matrix, split_strings
 import numpy
 from scipy.sparse import coo_matrix
 from sourced.ml.core.models import Id2Vec, OrderedDocumentFrequencies
-from sourced.ml.core.tests.models import COOCC, COOCC_DF
-from sourced.ml.core.tests.test_dump import captured_output
 
 from sourced.ml.mining.cmd import id2vec_postprocess, id2vec_preprocess, run_swivel
 from sourced.ml.mining.tests import has_tensorflow
+from sourced.ml.mining.tests.models import COOCC, COOCC_DF
+from sourced.ml.mining.tests.test_dump import captured_output
 
 
 VOCAB = 304
@@ -119,7 +119,7 @@ class IdEmbeddingTests(unittest.TestCase):
                         "global_col": tf.FixedLenFeature([VOCAB], dtype=tf.int64),
                         "sparse_local_row": tf.VarLenFeature(dtype=tf.int64),
                         "sparse_local_col": tf.VarLenFeature(dtype=tf.int64),
-                        "sparse_value": tf.VarLenFeature(dtype=tf.float32)
+                        "sparse_value": tf.VarLenFeature(dtype=tf.float32),
                     })
             with tf.Session() as session:
                 global_row, global_col, local_row, local_col, value = session.run(

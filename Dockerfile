@@ -28,4 +28,4 @@ echo\n\' > /browser && \
     chmod +x /browser
 
 COPY . ml_mining/
-RUN cd ml_mining && pip3 install -e .
+RUN cd ml_mining && pip3 install -e .[pandas]

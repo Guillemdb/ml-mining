@@ -31,7 +31,7 @@ setup(
     url="https://github.com/src-d/ml-mining",
     download_url="https://github.com/src-d/ml-mining",
     packages=find_packages(exclude=exclude_packages),
-    namespace_packages=["sourced"],
+    namespace_packages=["sourced", "sourced.ml"],
     keywords=[
         "machine learning on source code",
         "github",
@@ -45,11 +45,16 @@ setup(
         "humanize>=0.5.0,<0.6",
         "parquet>=1.2,<2.0",
     ],
-    extras_require={"tf": tf_requires, "tf_gpu": tf_gpu_requires},
+    extras_require={"tf": tf_requires, "tf_gpu": tf_gpu_requires,
+                    "pandas": ["pandas>=0.24.1,""<1.0"],
+                    },
     tests_require=["docker>=3.6.0,<4.0"],
     package_data={
         "": ["LICENSE.md", "README.md"],
-        "sourced.ml.mining.tests": ["./asdf/*.asdf", "./swivel/*", "identifiers.csv.tar.gz"],
+        "sourced.ml.mining.transformers": ["languages.yml"],
+        "sourced.ml.mining.tests": ["./asdf/*.asdf", "./swivel/*", "identifiers.csv.tar.gz",
+                                    "./parquet/*.parquet", "topics_readable.txt",
+                                    "identifiers.csv.tar.gz", "./postproc/*.tsv.gz"],
     },
     python_requires=">=3.5",
     classifiers=[
