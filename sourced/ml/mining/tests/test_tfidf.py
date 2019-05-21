@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from pyspark import Row
@@ -8,6 +9,7 @@ from sourced.ml.mining.tests import create_spark_for_test, tfidf_data
 from sourced.ml.mining.transformers.tfidf import TFIDF
 
 
+@unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.tfidf tests.")
 class TFIDFTests(unittest.TestCase):
     def setUp(self):
         self.session = create_spark_for_test()

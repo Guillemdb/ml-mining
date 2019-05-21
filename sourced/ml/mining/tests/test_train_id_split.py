@@ -4,14 +4,13 @@ import tempfile
 import unittest
 
 from sourced.ml.mining.cmd import train_id_split
-from sourced.ml.mining.tests import has_tensorflow
 
 
 class TrainIdSplitTest(unittest.TestCase):
     def setUp(self):
         self.input = os.path.join(os.path.dirname(__file__), "identifiers.csv.tar.gz")
 
-    @unittest.skipIf(not has_tensorflow(), "Tensorflow is not installed.")
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.train_id_split tests.")
     def test_id_split_train(self):
         try:
             with tempfile.TemporaryDirectory() as tmpdir:

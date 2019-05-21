@@ -83,7 +83,8 @@ class IdEmbeddingTests(unittest.TestCase):
             args.shard_size = VOCAB + 1
             self.assertRaises(ValueError, lambda: id2vec_preprocess(args))
 
-    @unittest.skipIf(not has_tensorflow(), "Tensorflow is not installed.")
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True),
+                     "Skip ml_mining.test_id_embedding.")
     def test_preprocess(self):
         import tensorflow as tf
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -173,6 +174,8 @@ class IdEmbeddingTests(unittest.TestCase):
             run_swivel(args)
             check_swivel_results(self, tmpdir)
 
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True),
+                     "Skip ml_mining.test_id_embedding.")
     def test_postprocess(self):
         buffer = BytesIO()
         args = argparse.Namespace(

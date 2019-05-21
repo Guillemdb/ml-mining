@@ -4,8 +4,6 @@ import os
 
 import numpy
 import pandas
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV, KFold, train_test_split
 from sourced.ml.core.models import Id2Vec
 from tqdm import tqdm
 
@@ -40,6 +38,7 @@ def identifiers_to_datasets(df_unique, id2vecs, log):
 
 
 def get_quality(X, y, estimator, tuned_parameters, seed, log):
+    from sklearn.model_selection import GridSearchCV, KFold, train_test_split
     X_train, X_test, y_train, y_test = \
         train_test_split(X, y, test_size=0.33, random_state=seed)
 
@@ -65,6 +64,7 @@ def id2role_eval(args):
     It creates a report about embedding quality.
     To collect the dataset please use repos2roleids entry point.
     """
+    from sklearn.linear_model import LogisticRegression
     log = logging.getLogger("id2role_eval")
 
     models = {}

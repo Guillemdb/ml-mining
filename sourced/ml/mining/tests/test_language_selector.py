@@ -1,4 +1,4 @@
-import sys
+import os
 import unittest
 
 from pyspark.sql.functions import lit
@@ -10,7 +10,8 @@ from sourced.ml.mining.transformers.basic import create_engine, create_parquet_l
 
 
 class LoaderTest(unittest.TestCase):
-    @unittest.skipUnless(sys.version_info < (3, 7), "Python 3.7 is not yet supported")
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True),
+                     "Skip ml_mining.language_selector tests.")
     def test_parquet(self):
         languages1 = ["Python", "Java"]
         languages2 = ["Java"]

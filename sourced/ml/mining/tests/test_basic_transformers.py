@@ -1,7 +1,6 @@
 import csv
 import os
 import shutil
-import sys
 import tempfile
 import unittest
 
@@ -20,7 +19,8 @@ from sourced.ml.mining.utils.spark import SparkDefault
 
 class BasicTransformerTests(unittest.TestCase):
     @classmethod
-    @unittest.skipUnless(sys.version_info < (3, 7), "Python 3.7 is not yet supported")
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True),
+                     "Skip ml_mining.test_basic_transformers.")
     def setUpClass(cls):
         cls.engine = create_engine("test_with_engine", SIVA_DIR, "siva")
         cls.spark = cls.engine.session

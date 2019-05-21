@@ -1,3 +1,4 @@
+import os
 import tempfile
 import unittest
 
@@ -17,6 +18,7 @@ class IndexerTests(unittest.TestCase):
             .parallelize(range(len(data))) \
             .map(lambda x: data[x])
 
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.test_indexer tests.")
     def test_call(self):
         indexer = Indexer("to_index")
         res = indexer(self.data_rdd)
@@ -26,6 +28,7 @@ class IndexerTests(unittest.TestCase):
             .collect()
         self.assertEqual(self.data, data_reverse)
 
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.test_indexer tests.")
     def test_save_load(self):
         indexer = Indexer("to_index")
         res = indexer(self.data_rdd)

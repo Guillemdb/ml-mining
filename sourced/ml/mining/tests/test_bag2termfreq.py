@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from sourced.ml.mining.tests import create_spark_for_test, tfidf_data
@@ -9,6 +10,7 @@ class Uast2TermFreqTests(unittest.TestCase):
         self.sc = create_spark_for_test()
         self.bag2tf = BagFeatures2TermFreq()
 
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.bag2termfreq tests.")
     def test_call(self):
         tf = self.bag2tf(self.sc.sparkContext.parallelize(
             [((i["t"], i["d"]), i["v"]) for i in tfidf_data.dataset])) \

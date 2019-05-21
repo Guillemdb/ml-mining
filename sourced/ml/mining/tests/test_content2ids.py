@@ -13,6 +13,7 @@ class Content2IdsTests(unittest.TestCase):
     def setUp(self):
         self.sc = create_spark_for_test()
 
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.test_content2ids tests.")
     def test_languages(self):
         for path in sys.path:
             path_to_languages = os.path.join(path, "sourced/ml/mining/transformers/languages.yml")
@@ -20,6 +21,7 @@ class Content2IdsTests(unittest.TestCase):
                 break
         self.assertTrue(os.path.exists(path_to_languages))
 
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.test_content2ids tests.")
     def test_call(self):
         content2ids = ContentToIdentifiers(split=False)
         ids2dataset = IdentifiersToDataset(idfreq=False)
@@ -32,6 +34,7 @@ class Content2IdsTests(unittest.TestCase):
             rdd_processed = content2ids(df)
             self.assertEqual(result, set(ids2dataset(rdd_processed).collect()))
 
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.test_content2ids tests.")
     def test_call_split_idfreq(self):
         content2ids = ContentToIdentifiers(split=True)
         ids2dataset = IdentifiersToDataset(idfreq=True)
@@ -44,6 +47,7 @@ class Content2IdsTests(unittest.TestCase):
             rdd_processed = content2ids(df)
             self.assertEqual(result, set(ids2dataset(rdd_processed).collect()))
 
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.test_content2ids tests.")
     def test_process_row_split(self):
         content2ids = ContentToIdentifiers(split=True)
         row = Row(content="from foo import FooBar; print('foobar')",
@@ -63,6 +67,7 @@ class Content2IdsTests(unittest.TestCase):
         self.assertEqual(len(list(content2ids.process_row(row_md))), 0)
         self.assertEqual(len(list(content2ids.process_row(row_batch))), 0)
 
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.test_content2ids tests.")
     def test_process_row(self):
         content2ids = ContentToIdentifiers(split=False)
         row = Row(content="from foo import FooBar; print('foobar')",

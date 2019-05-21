@@ -1,5 +1,5 @@
 import argparse
-import sys
+import os
 import unittest
 
 from sourced.ml.mining.tests.models import PARQUET_DIR
@@ -7,7 +7,7 @@ from sourced.ml.mining.transformers.basic import create_uast_source
 
 
 class LoaderTest(unittest.TestCase):
-    @unittest.skipUnless(sys.version_info < (3, 7), "Python 3.7 is not yet supported")
+    @unittest.skipIf(os.getenv("SKIP_SPARK_TESTS", True), "Skip ml_mining.parquet tests.")
     def test_parquet(self):
         args = argparse.Namespace(parquet=True,
                                   repositories=PARQUET_DIR,
